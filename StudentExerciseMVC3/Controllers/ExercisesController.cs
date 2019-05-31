@@ -39,7 +39,7 @@ namespace StudentExerciseMVC3.Controllers
                     cmd.CommandText = @"
                         SELECT e.Id,
                         e.Id,
-                        e.Title,
+                        e.ExName,
                         e.Lang
                         FROM Exercise e
                         ";
@@ -51,7 +51,7 @@ namespace StudentExerciseMVC3.Controllers
                         Exercise exercise = new Exercise
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                            Title = reader.GetString(reader.GetOrdinal("Title")),
+                            ExName = reader.GetString(reader.GetOrdinal("ExName")),
                             Lang = reader.GetString(reader.GetOrdinal("Lang"))
                             
                         };
@@ -78,7 +78,7 @@ namespace StudentExerciseMVC3.Controllers
                         @"
                         SELECT e.Id,
                         e.Id,
-                        e.Title,
+                        e.ExName,
                         e.Lang
                         FROM Exercise e
                         Where e.id = @id";
@@ -91,7 +91,7 @@ namespace StudentExerciseMVC3.Controllers
                         exercise = new Exercise
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                            Title = reader.GetString(reader.GetOrdinal("Title")),
+                            ExName = reader.GetString(reader.GetOrdinal("Title")),
                             Lang = reader.GetString(reader.GetOrdinal("Lang"))
 
                         };
@@ -126,8 +126,8 @@ namespace StudentExerciseMVC3.Controllers
                     {
                         cmd.CommandText = @"INSERT INTO Exercise (Title, Lang)
                                             OUTPUT INSERTED.Id
-                                            VALUES (@Title, @Lang)";
-                        cmd.Parameters.Add(new SqlParameter("@Title", exercise.Title));
+                                            VALUES (@ExName, @Lang)";
+                        cmd.Parameters.Add(new SqlParameter("@ExName", exercise.ExName));
                         cmd.Parameters.Add(new SqlParameter("@Lang", exercise.Lang));
                         
 
@@ -164,10 +164,10 @@ namespace StudentExerciseMVC3.Controllers
                     using (SqlCommand cmd = conn.CreateCommand())
                     {
                         cmd.CommandText = @"UPDATE Exercise
-                                                SET Title = @title,
+                                                SET ExName = @ExName,
                                                     Lang = @lang
                                                 WHERE Id = @id";
-                        cmd.Parameters.Add(new SqlParameter("@title", Convert.ToString(collection["Title"])));
+                        cmd.Parameters.Add(new SqlParameter("@ExName", Convert.ToString(collection["ExName"])));
                         cmd.Parameters.Add(new SqlParameter("@lang", Convert.ToString(collection["Lang"])));
                         cmd.Parameters.Add(new SqlParameter("@id", id));
                         cmd.ExecuteNonQuery();
